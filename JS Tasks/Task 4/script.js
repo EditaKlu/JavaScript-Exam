@@ -9,3 +9,26 @@ būti stilizuota su CSS ir būti responsive;
 -------------------------------------------------------------------------- */
 
 const ENDPOINT = 'cars.json';
+
+const fetchData = async () => {
+    try {
+        const response = await fetch(ENDPOINT);
+        if (response.ok) {
+            const cars = await response.json();
+            return cars;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+(() => { fetchData().then(cars => displayData(cars)) })();
+
+const output = document.querySelector("#output");
+
+function displayData(car) {
+    car.forEach(element => {
+        output.innerHTML += `<div id='brandCard'><div id='cars'> ${element.brand}</div> <div id='models'> ${element.models}</div></div>`
+    });
+}
+
